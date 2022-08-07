@@ -6,21 +6,28 @@ import favoritesImg from './img/favorites.png'
 import cartImg from './img/cart.png'
 import arrowImg from './img/arrow.png'
 
+import Menu from '../menu/Menu';
+
 class Header extends Component {
+    state = {
+        menuActive : false
+    }
     render() {
-        const {counterFavorites} = this.props;
+        const {counterFavorites, onFavoritesGroupActive, onHomePage} = this.props;
         let styleMarkerFavorites = counterFavorites >= 1 ? null: "hide";
         return (
             <header>
-                <div className="logo">QPICK</div>
+                <div onClick={onHomePage} className="logo">QPICK</div>
                 <div className="menu">
                     <img src={phoneImg} alt="phone" className="menu_icon_phone"/>
                     <div className="menu_text">Выбрать модель телефона</div>
                     <img className="arrow" src={arrowImg} alt="arrow"/>
+                    <Menu/>
+
                 </div>
                 <div className="btn_group">
                     <div className="favorites">
-                        <img src={favoritesImg} alt="favorites"/>
+                        <img onClick={onFavoritesGroupActive} src={favoritesImg} alt="favorites"/>
                         <div className={"marker " + styleMarkerFavorites}>{counterFavorites}</div>
                     </div>
                     <div className="cart">

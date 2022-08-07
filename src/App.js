@@ -12,36 +12,27 @@ class App extends Component {
   
 
   state = {
-    data: this.database.data
+    productsGroup: this.database.productsGroup,
+    product: this.database.products
 
   }
 
   toggleFavorites = (id) => {
-    const newProductGroup = this.state.data.productsGroup.map(item => {
-      if(item.product) {
-        let product = item.product.map(item => {
-          if (item.id === id) {
-            if (item.favorites) {
-              console.log('true')
-              item.favorites = false;
-            } else {
-              item.favorites = true;
-            }
+    const newProduct = this.state.product.map(item => {
+      if (item.id === id) {
+        if (item.id === id) {
+          if (item.favorites) {
+            item.favorites = false;
+          } else {
+            item.favorites = true;
           }
-          return item;
-        })
-        item.product = product;
-        return item;
-        
-      } else {
-        return item;
+        }
       }
+      return item;
     })
-    const newData = this.state.data
-    newData.productsGroup = newProductGroup
-    this.setState(({data}) => {
+    this.setState(() => {
       return {
-        data: newData
+        product: newProduct
       }
     }) 
   }
@@ -49,24 +40,55 @@ class App extends Component {
   
 countingFavorites = () => {
   let result = 0
-  let arr = this.state.data.productsGroup;
-  arr.forEach(item => {
-    item.product.forEach(item => {
-      if (item.favorites) {
-        result++;
-      }
-    })
+  let product = this.state.product;
+  product.forEach(item => {
+    if (item.favorites) {
+      result++;
+    }
   })
   return result
 }
+
+onFavoritesGroupActive = (e) => {
+  let newProductGroup = this.state.productsGroup.map(item => {
+    if (item.name === "Избраное") {
+      item.active = true
+    } else {
+      item.active = false
+    }
+    return item
+  })
+  this.setState(() => ({
+    productsGroup: newProductGroup
+  }))
+}
+
+onHomePage = () => {
+  let newProductGroup = this.state.productsGroup.map(item => {
+    if (item.name === "Избраное") {
+      item.active = false
+    } else {
+      item.active = true
+    }
+    return item
+  })
+  this.setState(() => ({
+    productsGroup: newProductGroup
+  }))
+} 
   
   render() {
-    console.log(this.countingFavorites())
+    const {productsGroup, product} = this.state;
     return (
       <div className="App">
         <div className="container">
-          <Header counterFavorites ={this.countingFavorites()}/>
-          <Products data = {this.state.data}
+          <Header
+           counterFavorites ={this.countingFavorites()}
+           onFavoritesGroupActive = {this.onFavoritesGroupActive}
+           onHomePage = {this.onHomePage}
+           />
+          <Products productsGroup = {productsGroup}
+            product = {product}
            toggleFavorites= {this.toggleFavorites}/>
           <Footer/>
         </div>

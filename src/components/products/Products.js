@@ -9,26 +9,30 @@ class Products extends Component {
 
     
     render() {
-        const {data,toggleFavorites} = this.props;
-        let productGroup = data.productsGroup.map((item) => {
-            let products = item.product.map((item) => {
-                return <CardProduct
-                    key = {item.id}
-                    data = {item}
+        const {productsGroup,product,toggleFavorites} = this.props;
+        let productGroupRender = productsGroup.map((productsGroup) => {
+            let productsRender = product.map((product) => {
+                if (product.productsGroup === productsGroup.name ||
+                    (productsGroup.name === "Избраное" && product.favorites)) {
+                    return <CardProduct
+                    key = {product.id}
+                    data = {product}
                     toggleFavorites = {toggleFavorites}
                     />
+                }
             })
-            return (
+            if (productsGroup.active) {
+                return (
                 <div key={nanoid()} className="product_group">
-                    <h3>{item.name}</h3>
-                    <div className="products">{products}</div>
+                    <h3>{productsGroup.name}</h3>
+                    <div className="products">{productsRender}</div>
                 </div>
-            )
+                )
+            }
         })
         return (
             <>
-                {productGroup}
-                
+                {productGroupRender}
             </>
             
         )
