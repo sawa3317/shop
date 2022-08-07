@@ -1,0 +1,17 @@
+.product_group {
+    min-height: 200px;
+    margin-top: 50px;
+    h3 {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        color: #838383;
+    }
+
+    .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
