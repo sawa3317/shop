@@ -9,12 +9,13 @@ import whatsappImg from './img/Whatsapp.png';
 class Footer extends Component {
 
     render() {
+        const {onFavoritesGroupActive, onCartPage} = this.props;
         return (
             <footer>
                 <div className="logo">QPICK</div>
                 <ul className="menu">
-                    <li className="menu_item">Избранное</li>
-                    <li className="menu_item">Корзина</li>
+                    <li onClick={onFavoritesGroupActive} className="menu_item">Избранное</li>
+                    <li onClick={onCartPage} className="menu_item">Корзина</li>
                     <li className="menu_item">Контакты</li>
                 </ul>
     

@@ -6,6 +6,7 @@ import Database from './database/Database';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Products from './components/products/Products';
+import Cart from './components/cart/Cart';
 
 class App extends Component {
   database = new Database();
@@ -13,7 +14,8 @@ class App extends Component {
 
   state = {
     productsGroup: this.database.productsGroup,
-    product: this.database.products
+    product: this.database.products,
+    activeScreen: 'home'
 
   }
 
@@ -73,12 +75,23 @@ onHomePage = () => {
     return item
   })
   this.setState(() => ({
-    productsGroup: newProductGroup
+    productsGroup: newProductGroup,
+    activeScreen: 'home'
   }))
-} 
+}
+
+onCartPage = () => {
+  this.setState({activeScreen: 'cart'});
+}
+
+
+
   
   render() {
-    const {productsGroup, product} = this.state;
+    const {productsGroup, product, activeScreen} = this.state;
+    // this.onCartPage()
+    
+    
     return (
       <div className="App">
         <div className="container">
@@ -86,11 +99,20 @@ onHomePage = () => {
            counterFavorites ={this.countingFavorites()}
            onFavoritesGroupActive = {this.onFavoritesGroupActive}
            onHomePage = {this.onHomePage}
+           onCartPage = {this.onCartPage}
            />
-          <Products productsGroup = {productsGroup}
+            <UseActiveScreen
+            productsGroup = {productsGroup}
             product = {product}
-           toggleFavorites= {this.toggleFavorites}/>
-          <Footer/>
+            toggleFavorites= {this.toggleFavorites}
+            activeScreen = {activeScreen}
+            onHomePage = {this.onHomePage}
+            />
+           
+          <Footer
+           onFavoritesGroupActive = {this.onFavoritesGroupActive}
+           onCartPage = {this.onCartPage}
+           />
         </div>
       </div>
     )
@@ -98,3 +120,16 @@ onHomePage = () => {
 }
 
 export default App;
+
+const UseActiveScreen = ({productsGroup, product, toggleFavorites, activeScreen,onHomePage}) => {
+  
+  if (activeScreen === 'home') {
+    return (
+      <Products productsGroup = {productsGroup}
+            product = {product}
+           toggleFavorites= {toggleFavorites}/>
+    )
+  } else if (activeScreen === 'cart') {
+    return <Cart onHomePage = {onHomePage}/>
+  }
+}

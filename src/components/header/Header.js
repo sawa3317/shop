@@ -13,7 +13,7 @@ class Header extends Component {
         menuActive : false
     }
     render() {
-        const {counterFavorites, onFavoritesGroupActive, onHomePage} = this.props;
+        const {counterFavorites, onFavoritesGroupActive, onHomePage, onCartPage} = this.props;
         let styleMarkerFavorites = counterFavorites >= 1 ? null: "hide";
         return (
             <header>
@@ -30,7 +30,7 @@ class Header extends Component {
                         <img onClick={onFavoritesGroupActive} src={favoritesImg} alt="favorites"/>
                         <div className={"marker " + styleMarkerFavorites}>{counterFavorites}</div>
                     </div>
-                    <div className="cart">
+                    <div onClick={onCartPage} className="cart">
                         <img src={cartImg} alt="cart"/>
                         <div className="marker">0</div>
                     </div>

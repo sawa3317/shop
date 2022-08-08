@@ -1,0 +1,44 @@
+
+.empty_cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 190px;
+    margin-bottom: 330px;
+    &_img {
+        width: 409px;
+    }
+    &_title {
+        margin: 0;
+        margin-top: 30px;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 30px;
+        color: #101010;
+    }
+    &_text {
+        margin-top: 5px;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        color: #838383;
+    }
+    &_btn {
+        cursor: pointer;
+        margin-top: 30px;
+        width: 540px;
+        height: 65px;
+        background: #101010;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        text-align: center;
+        color: #FFFFFF;
+    }
+
+}

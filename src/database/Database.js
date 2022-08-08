@@ -67,6 +67,7 @@ class Database {
             rating: 4.7,
             favorites: false,
             active: true,
+            
             id: nanoid()
         },
         {

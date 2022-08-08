@@ -11,20 +11,14 @@ class CardProduct extends Component {
         favorites: 0
     }
 
-    onFavorites = (name,img,price,id) => {
-        if (this.state.favorites) {
-            this.props.deletFavorites(id)
-        } else {
-            this.props.addFavorites(name,img,price,id)
+    discountCalculation = (price,discount) => {
+        let zero = '';
+        if(discount<=9) {
+            zero =  '0'
         }
-        
-        this.setState(({favorites}) => {
-            console.log(favorites,1)
-            return {
-                favorites: 1
-            }
-        })
-    }
+        return (price - (price * Number('0.' + zero + discount))).toFixed(2);
+    } 
+    
     
     render() {
         const {data : {name, img, price, discount, rating, id, favorites},toggleFavorites} = this.props;
@@ -43,9 +37,10 @@ class CardProduct extends Component {
                 </div>
                 <div className="card_info">
                     <div className="card_name">{name}</div>
-                    {price ? <div className="card_price">{price + ' $'}</div> :null}
+                    {price ? discount ? <div className="card_price">{this.discountCalculation(price,discount) + ' $'}</div> 
+                    : <div className="card_price">{price.toFixed(2) + ' $'}</div> :null}
                     {discount ? <div className="card_discount">{'- ' + discount + '%'}</div> : null}
-                    
+                    {discount ? <div className="card_price_prev">{price.toFixed(2) + " $"}</div> : null}
                 </div>
                 {rating ? <div className="card_rating"><span>★</span> {rating}</div> :null}  
                 

@@ -12,7 +12,8 @@ class Products extends Component {
         const {productsGroup,product,toggleFavorites} = this.props;
         let productGroupRender = productsGroup.map((productsGroup) => {
             let productsRender = product.map((product) => {
-                if (product.productsGroup === productsGroup.name ||
+                if (product.active &&
+                    product.productsGroup === productsGroup.name ||
                     (productsGroup.name === "Избраное" && product.favorites)) {
                     return <CardProduct
                     key = {product.id}
